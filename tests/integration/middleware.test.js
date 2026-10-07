@@ -5,8 +5,8 @@ const path = require('path');
 const os = require('os');
 const http = require('node:http');
 
-const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'psitransfer-int-'));
-process.env.PSITRANSFER_UPLOAD_DIR = tmpDir;
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cloudrive-int-'));
+process.env.CLOUDRIVE_UPLOAD_DIR = tmpDir;
 
 const { test, after } = require('node:test');
 const assert = require('node:assert');

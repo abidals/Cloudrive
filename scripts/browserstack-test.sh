@@ -26,7 +26,7 @@ if [[ ! -x "$TC" ]]; then
   err $TC does not exist or has not execute permissions
 fi
 
-export BROWSERSTACK_PROJECT_NAME=PsiTransfer
+export BROWSERSTACK_PROJECT_NAME=Cloudrive
 export BROWSERSTACK_BUILD_ID=${BROWSERSTACK_BUILD_ID:-dev}
 export BROWSERSTACK_PARALLEL_RUNS=1
 export BROWSERSTACK_CONSOLE=warnings
@@ -47,10 +47,10 @@ function abort {
 trap abort SIGINT SIGTERM SIGHUP
 
 export TEST_URL="http://localhost:3030"
-(PSITRANSFER_PORT=3030 PROCESS_ENV=production node app)&
+(CLOUDRIVE_PORT=3030 PROCESS_ENV=production node app)&
 PID=$!
-sleep 2 # Give PsiTransfer some time to start
-echo PsiTransfer PID ${PID}
+sleep 2 # Give Cloudrive some time to start
+echo Cloudrive PID ${PID}
 
 # Seems parallel tests with browserstack provider are buggy
 EXIT_CODE=0

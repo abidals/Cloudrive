@@ -1,7 +1,7 @@
 {
-  "name": "psitransfer",
-  "version": "0.0.0",
-  "description": "Simple open source self-hosted file sharing solution",
+  "name": "cloudrive",
+  "version": "0.1.0",
+  "description": "Self-hosted file sharing with accounts, roles and expiring links. Fork of PsiTransfer",
   "keywords": [
     "share",
     "upload",
@@ -9,8 +9,8 @@
     "files",
     "wetransfer"
   ],
-  "repository": "psi-4ward/psitransfer",
-  "bugs": "https://github.com/psi-4ward/psitransfer/issues",
+  "repository": "abidals/Cloudrive",
+  "bugs": "https://github.com/abidals/Cloudrive/issues",
   "main": "app.js",
   "dependencies": {
     "archiver": "^8.0.0",
@@ -30,11 +30,11 @@
     "to-object-reducer": "^1.0.1"
   },
   "bin": {
-    "psitransfer": "cli.js"
+    "cloudrive": "cli.js"
   },
   "scripts": {
     "start": "NODE_ENV=production node app.js",
-    "dev": "NODE_ENV=dev DEBUG=psitransfer:* nodemon -i app -i dist -i data app.js",
+    "dev": "NODE_ENV=dev DEBUG=cloudrive:* nodemon -i app -i dist -i data app.js",
     "debug": "node --inspect app.js",
     "test": "node --test 'tests/**/*.test.js'",
     "test:unit": "node --test tests/unit/*.test.js",
@@ -43,7 +43,7 @@
   "engines": {
     "node": ">= 24"
   },
-  "author": "Christoph Wiechert <wio@psitrax.de>",
+  "author": "Cloudrive based on PsiTransfer by Christoph Wiechert <wio@psitrax.de>",
   "contributors": [],
   "license": "BSD-2-Clause"
 }

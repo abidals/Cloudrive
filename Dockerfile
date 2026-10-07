@@ -1,9 +1,13 @@
 FROM node:24-alpine
 
-ENV PSITRANSFER_UPLOAD_DIR=/data \
+ENV CLOUDRIVE_UPLOAD_DIR=/data \
     NODE_ENV=production
 
-LABEL maintainer="Christoph Wiechert <wio@psitrax.de>"
+LABEL org.opencontainers.image.title="Cloudrive" \
+      org.opencontainers.image.description="Self-hosted file sharing with accounts, roles and expiring links. Fork of PsiTransfer" \
+      org.opencontainers.image.source="https://github.com/abidals/Cloudrive" \
+      org.opencontainers.image.licenses="BSD-2-Clause" \
+      org.opencontainers.image.vendor="abidals"
 
 RUN apk add --no-cache tzdata
 

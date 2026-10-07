@@ -1,4 +1,4 @@
-const debug = require('debug')('psitransfer:plugin:file-uploaded-webook');
+const debug = require('debug')('cloudrive:plugin:file-uploaded-webook');
 const axios = require('axios');
 
 module.exports = function setupFileUploadedWebhook(eventBus, app, config, db) {

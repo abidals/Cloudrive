@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "Notify me when a file has been downloaded.",
   mailSendBtn: "Send E-Mail",
   mailsSent: "The e-mails have been sent.",
-  mailSubjectUploader: "PsiTransfer File-Upload",
-  mailSubjectDownloader: "PsiTransfer File-Download",
+  mailSubjectUploader: "Cloudrive File-Upload",
+  mailSubjectDownloader: "Cloudrive File-Download",
   mailSubjectFileDownloaded: "File has been downloaded",
   retentions: {
     "one-time": "one time download",

@@ -15,7 +15,7 @@ let server;
 if(config.port) {
   // HTTP Server
   server = app.listen(config.port, config.iface, () => {
-    console.log(`PsiTransfer listening on http://${config.iface}:${config.port}`);
+    console.log(`Cloudrive listening on http://${config.iface}:${config.port}`);
     eventBus.emit('listen', server);
   });
 }
@@ -29,7 +29,7 @@ if(config.sslPort && config.sslKeyFile && config.sslCertFile) {
   };
   httpsServer = https.createServer(sslOpts, app)
     .listen(config.sslPort, config.iface, () => {
-      console.log(`PsiTransfer listening on https://${config.iface}:${config.sslPort}`);
+      console.log(`Cloudrive listening on https://${config.iface}:${config.sslPort}`);
       eventBus.emit('listen', httpsServer);
     });
 }
@@ -37,7 +37,7 @@ if(config.sslPort && config.sslKeyFile && config.sslCertFile) {
 
 // graceful shutdown
 function shutdown() {
-  console.log('PsiTransfer shutting down...');
+  console.log('Cloudrive shutting down...');
   eventBus.emit('shutdown', server || httpsServer);
   if(server) {
     server.close(() => {

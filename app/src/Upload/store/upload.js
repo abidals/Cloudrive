@@ -44,7 +44,7 @@ export default {
     password: '',
     files: [],
     sid: getSid(),
-    uploadURI: (window.PSITRANSFER_UPLOAD_PATH || '/') + 'files',
+    uploadURI: (window.CLOUDRIVE_UPLOAD_PATH || '/') + 'files',
   },
 
   getters: {

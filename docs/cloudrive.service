@@ -1,17 +1,17 @@
 [Unit]
-Description=PsiTransfer
-Documentation=https://github.com/psi-4ward/psitransfer
+Description=Cloudrive
+Documentation=https://github.com/psi-4ward/cloudrive
 After=network.target
 
 [Service]
 Type=simple
-User=psitransfer
+User=cloudrive
 Restart=on-failure
 
 Environment=NODE_ENV=production
-Environment=PSITRANSFER_PORT=8080
+Environment=CLOUDRIVE_PORT=8080
 
-WorkingDirectory=/opt/psitransfer
+WorkingDirectory=/opt/cloudrive
 ExecStart=/usr/bin/node app.js
 
 [Install]

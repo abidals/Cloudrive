@@ -1,43 +1,43 @@
 # Deployment as Systemd service 
 
-You can also install PsiTransfer as (Linux) system service. Most distributions
-use Systemd as main init system. You should **not** run PsiTransfer with root privileges!
+You can also install Cloudrive as (Linux) system service. Most distributions
+use Systemd as main init system. You should **not** run Cloudrive with root privileges!
 
 **Preparation**
 
 ```bash
-# Create a target folder for PsiTransfer
-mkdir -p /opt/psitransfer
-cd /opt/psitransfer
+# Create a target folder for Cloudrive
+mkdir -p /opt/cloudrive
+cd /opt/cloudrive
 
 # Download and extract a prebuild
-curl -sL https://github.com/psi-4ward/psitransfer/releases/download/1.1.0-beta/psitransfer-1.1.0-beta.tar.gz | tar xz --strip 1
+curl -sL https://github.com/psi-4ward/cloudrive/releases/download/1.1.0-beta/cloudrive-1.1.0-beta.tar.gz | tar xz --strip 1
 
 # Install dependencies
 npm install --production
 
-# Add a user psitransfer
-sudo useradd --system psitransfer
+# Add a user cloudrive
+sudo useradd --system cloudrive
  
-# Make psitransfer owner of /opt/psitransfer
-sudo chown -R psitransfer:psitransfer /opt/psitransfer 
+# Make cloudrive owner of /opt/cloudrive
+sudo chown -R cloudrive:cloudrive /opt/cloudrive 
 ```
 
 **Systemd unit file**
 
-Grab the [psitransfer.service](https://github.com/psi-4ward/psitransfer/blob/master/docs/psitransfer.service)
+Grab the [cloudrive.service](https://github.com/psi-4ward/cloudrive/blob/master/docs/cloudrive.service)
 sample file, put it in `/etc/systemd/system/` and adjust to your needs.
 
 ```bash
 cd /etc/systemd/system
-sudo wget https://raw.githubusercontent.com/psi-4ward/psitransfer/master/docs/psitransfer.service
+sudo wget https://raw.githubusercontent.com/psi-4ward/cloudrive/master/docs/cloudrive.service
 
 # Start the service
-sudo systemctl start psitransfer
+sudo systemctl start cloudrive
 
 # Show the status
-sudo systemctl status psitransfer
+sudo systemctl status cloudrive
 
 # Enable autostart on boot
-sudo systemctl enable psitransfer
+sudo systemctl enable cloudrive
 ```

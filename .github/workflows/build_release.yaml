@@ -48,7 +48,7 @@ jobs:
           tag_name: ${{ github.ref_name }}
           fail_on_unmatched_files: false
           files: |
-            _releases/psitransfer-*.tar.gz
+            _releases/cloudrive-*.tar.gz
 
   publish_release:
     name: Publish Release
@@ -172,12 +172,6 @@ jobs:
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: psitrax
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -194,8 +188,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            psitrax/psitransfer:${{ github.ref_name }}
-            ghcr.io/psi-4ward/psitransfer:${{ github.ref_name }}
+            ghcr.io/abidals/cloudrive:${{ github.ref_name }}
 
   npm_publish:
     name: NPM publish
@@ -226,6 +219,6 @@ jobs:
           cd _releases
           mkdir _pkg
           cd _pkg
-          tar xzf ../psitransfer-$GITHUB_REF_NAME.tar.gz --strip 1
+          tar xzf ../cloudrive-$GITHUB_REF_NAME.tar.gz --strip 1
           npm publish --provenance
           cd ../..

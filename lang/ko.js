@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "파일 다운로드할 때 내게 알리기.",
   mailSendBtn: "이메일 보내기",
   mailsSent: "이메일(들)은 서공적으로 보낼.",
-  mailSubjectUploader: "PsiTransfer 파일 업로드",
-  mailSubjectDownloader: "PsiTransfer 파일 다운로드",
+  mailSubjectUploader: "Cloudrive 파일 업로드",
+  mailSubjectDownloader: "Cloudrive 파일 다운로드",
   mailSubjectFileDownloaded: "파일은 다운로드됨",
   retentions: {
     "one-time": "1회만 다운로드",

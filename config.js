@@ -4,10 +4,10 @@ const fsp = require('fs-promise');
 
 // Default Config
 // Do not edit this, generate a config.<ENV>.js for your NODE_ENV
-// or use ENV-VARS like PSITRANSFER_PORT=8000
+// or use ENV-VARS like CLOUDRIVE_PORT=8000
 const config = {
   "uploadDir": path.resolve(__dirname + '/data'),
-  // set to serve PsiTransfer from a sub-path
+  // set to serve Cloudrive from a sub-path
   "baseUrl": '/',
   // use to set custom upload url (subfolder to baseUrl)
   "uploadAppPath": '/',
@@ -43,6 +43,16 @@ const config = {
   "adminPass": false,
   // upload password, set to false to disable
   "uploadPass": false,
+  // Accounts & roles. When enabled, the upload page and admin area require a
+  // login (users in <uploadDir>/users.json, roles: admin, uploader).
+  // Downloads always stay public (bucket passwords still apply).
+  // Seeds an admin user on first start from adminUser / adminPassword.
+  // Overrides uploadPass and adminPass when enabled.
+  "accounts": false,
+  "adminUser": false,     // bootstrap admin name, eg ENV CLOUDRIVE_ADMIN_USER
+  "adminPassword": false, // bootstrap admin password, eg ENV CLOUDRIVE_ADMIN_PASSWORD
+  "sessionSecret": false, // HMAC secret; if falsy a random one is persisted below uploadDir
+  "sessionTtl": 3600 * 24, // signed cookie lifetime in seconds
   // make the bucket-password field mandatory
   "requireBucketPassword": false,
   "defaultRetention": "604800",
@@ -78,7 +88,7 @@ if (process.env.NODE_ENV && fsp.existsSync(envConfFile)) {
 // Load config from ENV VARS
 let envName;
 for (let k in config) {
-  envName = 'PSITRANSFER_' + k.replace(/([A-Z])/g, $1 => "_" + $1).toUpperCase();
+  envName = 'CLOUDRIVE_' + k.replace(/([A-Z])/g, $1 => "_" + $1).toUpperCase();
   if (process.env[envName]) {
     if (typeof config[k] === 'number') {
       config[k] = parseInt(process.env[envName], 10);

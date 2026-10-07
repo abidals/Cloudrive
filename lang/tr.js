@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "Dosyam indirilince bilgi ver",
   mailSendBtn: "E-Posta gönder",
   mailsSent: "E-Postalar gönderildi",
-  mailSubjectUploader: "PsiTransfer File-Upload",
-  mailSubjectDownloader: "PsiTransfer Dosya Yüklemesi",
+  mailSubjectUploader: "Cloudrive File-Upload",
+  mailSubjectDownloader: "Cloudrive Dosya Yüklemesi",
   mailSubjectFileDownloaded: "Dosya indirildi",
   retentions: {
     "one-time": "Tek Seferlik",

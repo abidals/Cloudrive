@@ -1,13 +1,13 @@
 services:
-  psitransfer-dev:
+  cloudrive-dev:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: psitransfer-dev
+    container_name: cloudrive-dev
     environment:
       NODE_ENV: development
     volumes:
-      - ..:/workspaces/psitransfer:cached
+      - ..:/workspaces/cloudrive:cached
       - ${HOME}/.cursor/lib:/root/.cursor/lib
       - ${HOME}/.cursor/skills:/root/.cursor/skills
       - ${HOME}/.cursor/rules:/root/.cursor/rules

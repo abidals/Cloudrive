@@ -1,4 +1,4 @@
-# PsiTransfer Upload / Download App
+# Cloudrive Upload / Download App
 
 ## Build Setup
 

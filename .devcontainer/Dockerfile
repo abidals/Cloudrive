@@ -46,4 +46,4 @@ RUN mkdir -p /workspaces
 COPY bashrc.local /root/.bashrc.local
 RUN echo 'source /root/.bashrc.local' >> /root/.bashrc
 
-WORKDIR /workspaces/psitransfer
+WORKDIR /workspaces/cloudrive

@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "先方がダウンロードしたら通知する",
   mailSendBtn: "メール送信",
   mailsSent: "メールを送信しました。",
-  mailSubjectUploader: "PsiTransfer ファイル送信",
-  mailSubjectDownloader: "PsiTransfer ファイル受信",
+  mailSubjectUploader: "Cloudrive ファイル送信",
+  mailSubjectDownloader: "Cloudrive ファイル受信",
   mailSubjectFileDownloaded: "ファイルがダウンロードされました",
   retentions: {
     "one-time": "一度だけ",

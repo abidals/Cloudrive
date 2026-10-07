@@ -84,17 +84,22 @@
       }
     },
 
+    mounted() {
+      // Session-authenticated (accounts mode): try immediately.
+      // Legacy adminPass mode: 401 shows the password form below.
+      this.fetchDb();
+    },
+
     methods: {
       expandView(sid) {
         if(this.expand === sid) return this.expand = false;
         this.expand = sid;
       },
 
-      login() {
-        if(!this.password) return;
+      fetchDb() {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', 'admin/data.json');
-        xhr.setRequestHeader("x-passwd", this.password);
+        if(this.password) xhr.setRequestHeader("x-passwd", this.password);
         xhr.onload = () => {
           if(xhr.status === 200) {
             try {
@@ -108,11 +113,17 @@
               this.error = e.toString();
             }
           } else {
+            this.loggedIn = false;
             if(xhr.status === 403) this.passwordWrong = true;
             else this.error = `${xhr.status} ${xhr.statusText}: ${xhr.responseText}`;
           }
         };
         xhr.send();
+      },
+
+      login() {
+        if(!this.password) return this.fetchDb();
+        this.fetchDb();
       },
 
       expandDb() {

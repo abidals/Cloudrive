@@ -1,8 +1,8 @@
 {
   "name": "DEV-Container",
   "dockerComposeFile": ["docker-compose.yml"],
-  "service": "psitransfer-dev",
-  "workspaceFolder": "/workspaces/psitransfer",
+  "service": "cloudrive-dev",
+  "workspaceFolder": "/workspaces/cloudrive",
   "shutdownAction": "stopCompose",
   "customizations": {
     "vscode": {
@@ -35,6 +35,6 @@
   },
   "forwardPorts": [3000],
   "portsAttributes": {
-    "3000": { "label": "psitransfer" }
+    "3000": { "label": "cloudrive" }
   }
 }

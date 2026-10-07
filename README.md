@@ -86,6 +86,25 @@ $ cd app && npm install && npm run build && cd ..
 $ npm start
 ```
 
+### Install the Olares app (any Olares 1.12.6+)
+
+Download the chart from the [Releases](https://github.com/abidals/Cloudrive/releases)
+page, then:
+
+```bash
+olares-cli market upload cloudrive-0.1.2.tgz
+olares-cli market install cloudrive -s upload \
+  --env CLOUDRIVE_ADMIN_USER=admin --env CLOUDRIVE_ADMIN_PASSWORD=temp-REci2kCSK0
+```
+
+`CLOUDRIVE_RESET_ADMIN=true` (env, default false) wipes ONLY accounts
+(`users.json` + session secret) at next startup so the bootstrap admin is
+re-seeded with the current env values — uploaded files are kept. The shipped
+temp password `temp-REci2kCSK0` is public — change it right after install
+(inside the pod: `node cli.js user-pass admin <new>`, or set the env + reset).
+
+Read `PLAN-Cloudrive.md` for packaging internals, upgrade runbook and roadmap.
+
 ## License
 
 BSD-2-Clause — © Christoph Wiechert (PsiTransfer)

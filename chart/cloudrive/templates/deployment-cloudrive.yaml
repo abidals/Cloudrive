@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudrive
+  namespace: '{{ .Release.Namespace }}'
+  labels:
+    app: cloudrive
+spec:
+  replicas: {{ .Values.workloads.cloudrive.replicaCount }}
+  selector:
+    matchLabels:
+      app: cloudrive
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: cloudrive
+    spec:
+      enableServiceLinks: false
+      initContainers:
+      - name: init-permissions
+        image: beclab/aboveos-busybox:1.37.0
+        command:
+        - sh
+        - -c
+        - |
+          set -e
+          if [ "$CLOUDRIVE_RESET_ADMIN" = "true" ]; then
+            rm -f /data/users.json /data/.session-secret
+          fi
+          mkdir -p /data
+          chown 1000:1000 /data
+        securityContext:
+          runAsUser: 0
+        env:
+        - name: CLOUDRIVE_RESET_ADMIN
+          value: "{{ .Values.olaresEnv.CLOUDRIVE_RESET_ADMIN }}"
+        volumeMounts:
+        - name: app-data
+          mountPath: /data
+      containers:
+      - name: cloudrive
+        image: ghcr.io/abidals/cloudrive:0.1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        env:
+        - name: CLOUDRIVE_ACCOUNTS
+          value: "true"
+        - name: CLOUDRIVE_UPLOAD_DIR
+          value: /data
+        - name: CLOUDRIVE_ADMIN_USER
+          valueFrom:
+            secretKeyRef:
+              name: cloudrive-auth
+              key: CLOUDRIVE_ADMIN_USER
+        - name: CLOUDRIVE_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cloudrive-auth
+              key: CLOUDRIVE_ADMIN_PASSWORD
+        - name: CLOUDRIVE_SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: cloudrive-auth
+              key: CLOUDRIVE_SESSION_SECRET
+        - name: CLOUDRIVE_MAX_FILE_SIZE
+          value: "{{ .Values.olaresEnv.CLOUDRIVE_MAX_FILE_SIZE }}"
+        - name: CLOUDRIVE_MAX_BUCKET_SIZE
+          value: "{{ .Values.olaresEnv.CLOUDRIVE_MAX_BUCKET_SIZE }}"
+        - name: CLOUDRIVE_SESSION_TTL
+          value: "{{ .Values.olaresEnv.CLOUDRIVE_SESSION_TTL }}"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: app-data
+          mountPath: /data
+      volumes:
+      - name: app-data
+        hostPath:
+          path: {{ .Values.userspace.appData }}
+          type: DirectoryOrCreate

@@ -1,0 +1,123 @@
+apiVersion: v3
+entrances:
+- authLevel: public
+  host: cloudrive-svc
+  icon: https://cdn.jsdelivr.net/gh/abidals/Cloudrive@main/icon.png
+  name: cloudrive
+  openMethod: default
+  port: 3000
+  title: Cloudrive
+metadata:
+  appid: cloudrive
+  categories:
+  - File Management
+  - Utilities_v112
+  description: Self-hosted file sharing with accounts, roles and expiring links. Resumable
+    uploads, public download pages, admin dashboard. Fork of PsiTransfer.
+  icon: https://cdn.jsdelivr.net/gh/abidals/Cloudrive@main/icon.png
+  name: cloudrive
+  title: Cloudrive
+  version: 0.1.2
+olaresManifest.type: app
+olaresManifest.version: 0.12.0
+envs:
+- envName: CLOUDRIVE_ADMIN_USER
+  required: true
+  type: string
+  editable: true
+  default: admin
+  regex: '^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,31}$'
+  description: Administrator username for Cloudrive (first start seeds this admin)
+- envName: CLOUDRIVE_ADMIN_PASSWORD
+  required: true
+  type: password
+  editable: true
+  default: temp-REci2kCSK0
+  regex: '^.{8,64}$'
+  description: Temp admin password for first start. Change it from Cloudrive users
+    management after first login.
+- envName: CLOUDRIVE_MAX_FILE_SIZE
+  type: int
+  editable: true
+  applyOnChange: true
+  default: '2147483648'
+  description: Maximum single-file upload size in bytes (default 2 GiB; empty disables).
+- envName: CLOUDRIVE_MAX_BUCKET_SIZE
+  type: int
+  editable: true
+  applyOnChange: true
+  default: '8589934592'
+  description: Maximum total size per upload bucket in bytes (default 8 GiB; empty
+    disables).
+- envName: CLOUDRIVE_SESSION_TTL
+  type: int
+  editable: true
+  applyOnChange: true
+  default: '86400'
+  description: Login session lifetime in seconds (default 24h).
+- envName: CLOUDRIVE_RESET_ADMIN
+  type: bool
+  editable: true
+  applyOnChange: true
+  default: 'false'
+  description: If true, the next startup deletes users.json (all accounts) and
+    the session secret so the bootstrap admin from CLOUDRIVE_ADMIN_USER /
+    CLOUDRIVE_ADMIN_PASSWORD is seeded again. Reset ACCESS ONLY - uploaded
+    files are kept. Set to false again after use.
+options:
+  appScope: {}
+  apiTimeout: 0
+  dependencies:
+  - name: olares
+    version: '>=1.12.6-0'
+    type: system
+  oidc: {}
+  resetCookie: {}
+  shared: false
+  upload: {}
+  websocket: {}
+permission:
+  appData: true
+spec:
+  supportArch:
+  - amd64
+  - arm64
+  runAsUser: true
+  versionName: 0.1.0
+  requiredCpu: 100m
+  limitedCpu: 1000m
+  requiredMemory: 128Mi
+  limitedMemory: 1Gi
+  requiredDisk: 100Mi
+  developer: abidals
+  submitter: abidals
+  website: https://github.com/abidals/Cloudrive
+  sourceCode: https://github.com/abidals/Cloudrive
+  fullDescription: >-
+    Cloudrive is a self-hosted file sharing service: upload one or many files,
+    pick an expiry, and share a single public link. Recipients never need an
+    account to view or download.
+
+
+    Features:
+
+    - Upload buckets with expiry: one-time download, 1 hour up to 8 weeks
+
+    - Resumable uploads and downloads (tus.io), huge files supported via streaming
+
+    - Public download pages - no login required to view or download (as chosen by the uploader)
+
+    - Accounts & roles: admin and uploader logins protect the upload page and admin dashboard
+
+    - Per-file and per-bucket size limits
+
+    - Optional per-bucket download passwords and one-time downloads
+
+    - Zip/tar.gz download-all, previews, QR sharing
+
+
+    Cloudrive is a fork of PsiTransfer (BSD-2-Clause, © Christoph Wiechert, https://github.com/psi-4ward/psitransfer)
+    extended with an account and role layer by abidals (https://github.com/abidals/Cloudrive).
+tailscale: {}
+workloadReplicas:
+  cloudrive: 1

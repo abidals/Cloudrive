@@ -75,6 +75,36 @@ README.
   **→ change after first login** (`cli.js user-pass admin <new>` inside the
   pod, or Settings → edit the two envs and let the pod restart)
 - Limits shipped by default: 2 GiB per file, 8 GiB per bucket, 24 h sessions
+- `CLOUDRIVE_RESET_ADMIN=true` (env, default false): deletes only
+  `users.json` + session secret at next startup so the bootstrap admin is
+  re-seeded; uploaded files are kept. Turn it back to false afterwards
+  (v0.1.5 flip flow: uninstall → install with the env false; appData keeps
+  `users.json` so logins survive reinstalls).
+
+## ⚠ WAN access via the Olares public relay (operational constraint)
+
+The public entrance (`*.my.cgtale.com`) tunnels through the Olares relay
+(`*.frp.olares.com`). Measured on 2026-10-08:
+
+- Every single HTTP response is cut after **~80 s** at the relay, regardless
+  of `options.apiTimeout: 0` (which is the chart-side knob, and is set).
+- Relay throughput ≈ **260 KB/s**, so one response carries ≈ **20 MiB**.
+- The connection closes **cleanly** (200 + FIN), so browsers treat the
+  truncated body as a completed download — silent truncation for direct
+  browser clicks, no resume offered. THIS was the owner's original complaint.
+- HTTP **Range works** through the relay (206 verified): a resumable client
+  (curl `-C -`, aria2, wget) can pull any size by walking ranges
+  (verified: 60 MiB in 3 × 20 MiB steps = complete & intact).
+- LAN/direct access does not traverse the relay.
+
+Consequences:
+
+- Files ≳ 20 MiB over **WAN+relay** need resumable tooling or LAN access;
+  share-zip is also capped per response.
+- An app-level fix cannot change relay policy. Candidate mitigations:
+  chunk-server-side into relay-sized pieces (client would need to join),
+  notify users to use aria2/`curl -C -`, or a browser-resume UX on the
+  download page (JS Range walker). Roadmap: download-page chunk walker.
 
 ### Rebuild + redeploy loop
 
@@ -97,7 +127,15 @@ olares-cli market status cloudrive
 ```
 
 Version bumps: bump Chart.yaml + manifest `metadata.version` + `image tag`
-at the same time; never re-push an unchanged version number.
+at the same **only when app code changed**. Chart-only changes bump chart +
+manifest `metadata.version` but reuse the existing image tag. App asset
+versions (like 0.1.2 app image) and chart versions (0.1.5) advance on
+independent counters — do not assume they match. Never re-push an unchanged
+version number.
+
+Distribution rule: the repo root keeps ONLY the latest `cloudrive-<ver>.tgz`;
+superseded charts live in the Releases section (tags v0.1.0 / v0.1.1 / v0.1.2
+/ v0.1.5 carry their own assets).
 
 ## 6. Known traps (do not regress)
 

@@ -17,7 +17,7 @@ metadata:
   icon: https://cdn.jsdelivr.net/gh/abidals/Cloudrive@main/icon.png
   name: cloudrive
   title: Cloudrive
-  version: 0.1.5
+  version: 0.1.6
 olaresManifest.type: app
 olaresManifest.version: 0.12.0
 envs:
@@ -83,7 +83,7 @@ spec:
   - amd64
   - arm64
   runAsUser: true
-  versionName: 0.1.2
+  versionName: 0.1.3
   requiredCpu: 100m
   limitedCpu: 1000m
   requiredMemory: 128Mi

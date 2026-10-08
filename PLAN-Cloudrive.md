@@ -101,10 +101,12 @@ Consequences:
 
 - Files ≳ 20 MiB over **WAN+relay** need resumable tooling or LAN access;
   share-zip is also capped per response.
-- An app-level fix cannot change relay policy. Candidate mitigations:
-  chunk-server-side into relay-sized pieces (client would need to join),
-  notify users to use aria2/`curl -C -`, or a browser-resume UX on the
-  download page (JS Range walker). Roadmap: download-page chunk walker.
+- App-level mitigation SHIPPED in v0.1.6: the download page walks each
+  file > 12 MiB in self-adapting HTTP Range chunks (targets < 50 s per
+  response, auto-retries, assembles client-side, streams to disk via the
+  File System Access API with a Blob fallback). Browsers now get complete
+  files despite the relay cut. Zip/tar archives remain single-stream (not
+  resumable) — keep archives small over WAN or fetch them in LAN.
 
 ### Rebuild + redeploy loop
 

@@ -3,4 +3,4 @@ appVersion: 0.1.0
 description: Self-hosted file sharing with accounts, roles and expiring links. Fork of PsiTransfer
 name: cloudrive
 type: application
-version: 0.1.2
+version: 0.1.5
